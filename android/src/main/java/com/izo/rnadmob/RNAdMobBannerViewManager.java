@@ -5,7 +5,6 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -186,6 +185,12 @@ class ReactAdView extends ReactViewGroup {
         this.adSize = adSize;
         this.adView.setAdSize(adSize);
     }
+
+    public void cleanup() {
+        if (this.adView != null) {
+            this.adView.destroy();
+        }
+    }
 }
 
 public class RNAdMobBannerViewManager extends ViewGroupManager<ReactAdView> {
@@ -298,5 +303,14 @@ public class RNAdMobBannerViewManager extends ViewGroupManager<ReactAdView> {
                 root.loadBanner();
                 break;
         }
+    }
+
+    @Override
+    public void onDropViewInstance(@NonNull ReactAdView view) {
+
+        // cleaning up view on unmount
+        view.cleanup();
+
+        super.onDropViewInstance(view);
     }
 }
