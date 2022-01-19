@@ -175,8 +175,9 @@ public class RNAdMobRewardedVideoAdModule extends ReactContextBaseJavaModule {
 
                 AdRequest.Builder adRequestBuilder = new AdRequest.Builder();
                 AdRequest adRequest = adRequestBuilder.build();
-
-                RewardedAd.load(getCurrentActivity(), adUnitID, adRequest, rewardedAdLoadCallback);
+                if(getCurrentActivity() != null) {
+                    RewardedAd.load(getCurrentActivity(), adUnitID, adRequest, rewardedAdLoadCallback);
+                }
             }
         });
     }
