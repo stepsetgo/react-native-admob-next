@@ -172,8 +172,9 @@ public class RNAdMobInterstitialAdModule extends ReactContextBaseJavaModule {
 
                 AdRequest.Builder adRequestBuilder = new AdRequest.Builder();
                 AdRequest adRequest = adRequestBuilder.build();
-
-                InterstitialAd.load(getCurrentActivity(), adUnitID, adRequest, interstitialAdLoadCallback);
+                if(getCurrentActivity() != null) {
+                    InterstitialAd.load(getCurrentActivity(), adUnitID, adRequest, interstitialAdLoadCallback);
+                }
             }
         });
     }
