@@ -21,6 +21,7 @@ import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.OnUserEarnedRewardListener;
 import com.google.android.gms.ads.RequestConfiguration;
+import com.google.android.gms.ads.admanager.AdManagerAdRequest;
 import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.google.android.gms.ads.FullScreenContentCallback;
@@ -147,19 +148,19 @@ public class RNAdMobRewardedVideoAdModule extends ReactContextBaseJavaModule {
                         String errorMessage = "Unknown error";
 
                         switch (errorCode) {
-                            case AdRequest.ERROR_CODE_INTERNAL_ERROR:
+                            case AdManagerAdRequest.ERROR_CODE_INTERNAL_ERROR:
                               errorString = "ERROR_CODE_INTERNAL_ERROR";
                               errorMessage = "Internal error, an invalid response was received from the ad server.";
                               break;
-                            case AdRequest.ERROR_CODE_INVALID_REQUEST:
+                            case AdManagerAdRequest.ERROR_CODE_INVALID_REQUEST:
                               errorString = "ERROR_CODE_INVALID_REQUEST";
                               errorMessage = "Invalid ad request, possibly an incorrect ad unit ID was given.";
                               break;
-                            case AdRequest.ERROR_CODE_NETWORK_ERROR:
+                            case AdManagerAdRequest.ERROR_CODE_NETWORK_ERROR:
                               errorString = "ERROR_CODE_NETWORK_ERROR";
                               errorMessage = "The ad request was unsuccessful due to network connectivity.";
                               break;
-                            case AdRequest.ERROR_CODE_NO_FILL:
+                            case AdManagerAdRequest.ERROR_CODE_NO_FILL:
                               errorString = "ERROR_CODE_NO_FILL";
                               errorMessage = "The ad request was successful, but no ad was returned due to lack of ad inventory.";
                               break;
@@ -173,8 +174,8 @@ public class RNAdMobRewardedVideoAdModule extends ReactContextBaseJavaModule {
                     }
                 };
 
-                AdRequest.Builder adRequestBuilder = new AdRequest.Builder();
-                AdRequest adRequest = adRequestBuilder.build();
+                AdManagerAdRequest.Builder adRequestBuilder = new AdManagerAdRequest.Builder();
+                AdManagerAdRequest adRequest = adRequestBuilder.build();
                 if(getCurrentActivity() != null) {
                     RewardedAd.load(getCurrentActivity(), adUnitID, adRequest, rewardedAdLoadCallback);
                 }

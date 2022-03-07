@@ -26,6 +26,9 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.RequestConfiguration;
+import com.google.android.gms.ads.admanager.AdManagerAdRequest;
+import com.google.android.gms.ads.admanager.AdManagerAdView;
+import com.google.android.gms.ads.admanager.AppEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -35,7 +38,7 @@ import java.util.Map;
 
 class ReactAdView extends ReactViewGroup {
 
-    protected AdView adView;
+    protected AdManagerAdView adView;
 
     String adUnitID;
     String[] testDevices;
@@ -50,7 +53,14 @@ class ReactAdView extends ReactViewGroup {
         if (this.adView != null) this.adView.destroy();
 
         final Context context = getContext();
-        this.adView = new AdView(context);
+        this.adView = new AdManagerAdView(context);
+        this.adView.setAppEventListener(new AppEventListener() {
+            @Override
+            public void onAppEvent(@NonNull String s, @NonNull String s1) {
+
+            }
+        });
+
         this.adView.setAdListener(new AdListener() {
             @Override
             public void onAdClosed() {
@@ -67,16 +77,16 @@ class ReactAdView extends ReactViewGroup {
 
                 String errorMessage = "Unknown error";
                 switch (errorCode) {
-                    case AdRequest.ERROR_CODE_INTERNAL_ERROR:
+                    case AdManagerAdRequest.ERROR_CODE_INTERNAL_ERROR:
                         errorMessage = "Internal error, an invalid response was received from the ad server.";
                         break;
-                    case AdRequest.ERROR_CODE_INVALID_REQUEST:
+                    case AdManagerAdRequest.ERROR_CODE_INVALID_REQUEST:
                         errorMessage = "Invalid ad request, possibly an incorrect ad unit ID was given.";
                         break;
-                    case AdRequest.ERROR_CODE_NETWORK_ERROR:
+                    case AdManagerAdRequest.ERROR_CODE_NETWORK_ERROR:
                         errorMessage = "The ad request was unsuccessful due to network connectivity.";
                         break;
-                    case AdRequest.ERROR_CODE_NO_FILL:
+                    case AdManagerAdRequest.ERROR_CODE_NO_FILL:
                         errorMessage = "The ad request was successful, but no ad was returned due to lack of ad inventory.";
                         break;
                 }
@@ -146,8 +156,8 @@ class ReactAdView extends ReactViewGroup {
     }
 
     public void loadBanner() {
-        AdRequest.Builder adRequestBuilder = new AdRequest.Builder();
-        AdRequest adRequest = adRequestBuilder.build();
+        AdManagerAdRequest.Builder adRequestBuilder = new AdManagerAdRequest.Builder();
+        AdManagerAdRequest adRequest = adRequestBuilder.build();
         this.adView.loadAd(adRequest);
     }
 
