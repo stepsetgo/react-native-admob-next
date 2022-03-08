@@ -61,7 +61,7 @@ RCT_EXPORT_METHOD(setTestDevices:(NSArray *)testDevices)
 
 RCT_EXPORT_METHOD(requestAd:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-    GADRequest *request = [GADRequest request];
+    GAMRequest *request = [GAMRequest request];
     [GADRewardedAd loadWithAdUnitID:_adUnitID
                             request:request
                   completionHandler:^(GADRewardedAd * _Nullable rewardedAd, NSError * _Nullable error) {
