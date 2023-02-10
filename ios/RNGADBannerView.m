@@ -31,7 +31,7 @@
 
         UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
 
-        _bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
+        _bannerView = [[GADBannerView alloc] initWithAdSize:GADAdSizeBanner];
         _bannerView.delegate = self;
         _bannerView.adSizeDelegate = self;
         _bannerView.rootViewController = rootViewController;
@@ -66,7 +66,7 @@
 
 - (void)setTestDevices:(NSArray *)testDevices
 {
-    _testDevices = RNAdMobProcessTestDevices(testDevices, kGADSimulatorID);
+    _testDevices = RNAdMobProcessTestDevices(testDevices, GADSimulatorID);
 
     [GADMobileAds sharedInstance].requestConfiguration.testDeviceIdentifiers = _testDevices;
 }

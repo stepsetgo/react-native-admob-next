@@ -32,7 +32,7 @@
 
         UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
 
-        _bannerView = [[GAMBannerView alloc] initWithAdSize:kGADAdSizeBanner];
+        _bannerView = [[GAMBannerView alloc] initWithAdSize:GADAdSizeBanner];
         _bannerView.delegate = self;
         _bannerView.adSizeDelegate = self;
         _bannerView.appEventDelegate = self;
@@ -82,7 +82,7 @@
     __block NSMutableArray *validAdSizes = [[NSMutableArray alloc] initWithCapacity:adSizes.count];
     [adSizes enumerateObjectsUsingBlock:^(id jsonValue, NSUInteger idx, __unused BOOL *stop) {
         GADAdSize adSize = [RCTConvert GADAdSize:jsonValue withWidth:frame.size.width];
-        if (GADAdSizeEqualToSize(adSize, kGADAdSizeInvalid)) {
+        if (GADAdSizeEqualToSize(adSize, GADAdSizeInvalid)) {
             RCTLogWarn(@"Invalid adSize %@", jsonValue);
         } else {
             [validAdSizes addObject:NSValueFromGADAdSize(adSize)];
@@ -93,7 +93,7 @@
 
 - (void)setTestDevices:(NSArray *)testDevices
 {
-    _testDevices = RNAdMobProcessTestDevices(testDevices, kGADSimulatorID);
+    _testDevices = RNAdMobProcessTestDevices(testDevices, GADSimulatorID);
 
     [GADMobileAds sharedInstance].requestConfiguration.testDeviceIdentifiers = _testDevices;
 }
