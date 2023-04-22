@@ -6,9 +6,6 @@
     "main": "dist/index.js",
     "types": "dist/index.d.js",
     "license": "BSD-2-Clause",
-    "publishConfig": {
-        "registry": "http://yarnpkg-1.staging.ssg.org/"
-    },
     "repository": {
         "type": "git",
         "url": "git@github.com:izetmolla/react-native-admob-next.git"
